@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script type="text/javascript" src="jquery-2.2.0.js"></script>
+        <script type="text/javascript" src="CadastroProduto.js"></script>
+    </head>
+    <body onload="listar()">
+        <h1>Cadastro de Produtos</h1>
+        <button id="btn-nv">Novo</button>
+        <button id="btn-alt">Alterar</button>
+        <form id="form-mgs">
+            <fieldset>
+                <label>nome
+                <input type="text" name="nome" />
+                </label>
+                <label>Valor
+                <input type="number" name="valor" />
+                </label>
+            </fieldset>
+        </form>
+        <button id="btn-conc">confirmar</button>
+        <button id="btn-canc">cancelar</button>    
+        <h2></h2>
+        <div class="coment">
+            <table id="t1">
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
