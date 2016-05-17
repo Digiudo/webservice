@@ -20,12 +20,6 @@ class Produto{
     public function getValor(){
         return $this->valor;
     }
-    
-    public function desconto($desc){
-        if($desc > 0 && $desc < 1){
-            $this->valor = $this->valor*(1-$desc);
-        }
-    }
 }
 
 ?>
