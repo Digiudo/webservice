@@ -24,13 +24,24 @@ class GeneralResourceGET extends GeneralResource{
         echo json_encode($tudo);
         http_response_code(200);
     }
-    
+    public function clienteLista(){
+        $arg1 = $_GET["arg1"];
+        header('content-type: application/json');
+        require_once "model/Cliente.php";
+        require_once "model/ClienteDAO.php";
+        $ct = new ClienteDAO();
+        $cli = $ct->listCliente();
+        foreach($cli as $aux){
+            $array[] = array("cd_Cliente"=>$aux->getId(), "nm_Cliente"=>$aux->getNome(), "cd_Telefone"=>$aux->getTel());
+        }
+        echo json_encode($array);
+        http_response_code(200);
+    }
     
 }
 
 class GeneralResourceOPTIONS extends GeneralResource{
 
-    
     public function produto(){
         header('allow: POST, OPTIONS');
         http_response_code(200); 
@@ -50,6 +61,17 @@ class GeneralResourceOPTIONS extends GeneralResource{
         header('allow: PUT, OPTIONS');
         http_response_code(200);
     }
+    
+    public function cliente(){
+        header('allow: POST, OPTIONS');
+        http_response_code(200); 
+    }
+    
+    public function clienteLista(){
+        header('allow: GET, OPTIONS');
+        http_response_code(200); 
+    }
+    
 }
 
 
@@ -68,6 +90,23 @@ class GeneralResourcePOST extends GeneralResource{
             $prod = $pd->insert($produto);
             echo json_encode(array("id"=>$prod->getId(), "nome"=>$prod->getNome(), "valor"=>$prod->getValor()));
             http_response_code(200);
+        }else{
+            echo json_encode(array("response"=>"Dados inválidos"));
+            http_response_code(500);   
+        }
+    }
+    
+    public function cliente(){
+        if($_SERVER["CONTENT_TYPE"] === "application/json"){
+            $json = file_get_contents('php://input');
+            $array = json_decode($json,true);
+            require_once "model/Cliente.php";
+            require_once "model/ClienteDAO.php";
+            $cliente = new Cliente(0,$array["nm_Cliente"],$array["cd_Telefone"]);
+            $ct = new ClienteDAO();
+            $ct->insert($cliente);
+            echo json_encode(array("response"=>"Cadastrado"));
+            http_response_code(200);   
         }else{
             echo json_encode(array("response"=>"Dados inválidos"));
             http_response_code(500);   
