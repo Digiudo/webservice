@@ -72,6 +72,11 @@ class GeneralResourceOPTIONS extends GeneralResource{
         http_response_code(200); 
     }
     
+    public function deletarCliente(){
+        header('allow: DELETE, OPTIONS');
+        http_response_code(200); 
+    }
+    
 }
 
 
@@ -125,6 +130,22 @@ class GeneralResourceDELETE extends GeneralResource{
             require_once "model/produtoDAO.php";
             $pd = new ProdutoDAO();
             $prod = $pd->deletar($_GET['arg1']);
+            http_response_code(200);
+        }else{
+            echo json_encode(array("response"=>"Dados inválidos"));
+            http_response_code(500);   
+        }
+    }
+    
+    public function deletarCliente(){
+        if($_SERVER["CONTENT_TYPE"] === "application/json"){
+            //$json = file_get_contents('php://input');
+            //$array = json_decode($json,true);
+            //require_once "model/Cliente.php";
+            require_once "model/ClienteDAO.php";
+            $cd = new ClienteDAO();
+            $cd->deletar($_GET['arg1']);
+            echo json_encode(array("response"=>"Cliente deletado"));
             http_response_code(200);
         }else{
             echo json_encode(array("response"=>"Dados inválidos"));
