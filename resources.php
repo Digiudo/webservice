@@ -77,6 +77,11 @@ class GeneralResourceOPTIONS extends GeneralResource{
         http_response_code(200); 
     }
     
+    public function alterarCliente(){
+        header('allow: PUT, OPTIONS');
+        http_response_code(200);
+    }
+    
 }
 
 
@@ -169,6 +174,23 @@ class GeneralResourcePUT extends GeneralResource{
             $prod = $pd->alter($produto);
             echo json_encode(array("id"=>$prod->getId(), "nome"=>$prod->getNome(), "valor"=>$prod->getValor()));
             http_response_code(200);
+        }else{
+            echo json_encode(array("response"=>"Dados inválidos"));
+            http_response_code(500);   
+        }
+    }
+    
+    public function alterarCliente(){
+        if($_SERVER["CONTENT_TYPE"] === "application/json"){
+            $json = file_get_contents('php://input');
+            $array = json_decode($json,true);
+            require_once "model/Cliente.php";
+            require_once "model/ClienteDAO.php";
+            $cliente = new Cliente($_GET["arg1"],$array["nm_Cliente"],$array["cd_Telefone"]);
+            $ct = new ClienteDAO();
+            $ct->alterar($cliente);
+            echo json_encode(array("response"=>"Cliente alterado"));
+            http_response_code(200);   
         }else{
             echo json_encode(array("response"=>"Dados inválidos"));
             http_response_code(500);   
