@@ -6,17 +6,17 @@ class ProdutoDAO{
         if ($mysqli->connect_errno) {
             echo "Falha no MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
         }
-        $stmt = $mysqli->prepare("INSERT INTO Produto(nm_produto,vl_produto) VALUES (?,?)");
-        $stmt->bind_param("sd",$p->getNome(),$p->getValor());
+        $stmt = $mysqli->prepare("INSERT INTO Produto(nm_produto,vl_produto,im_Produto,tp_Produto,ds_Produto) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("sssss",$p->getNome(),$p->getValor(),$p->getCapa(),$p->getTipo(),$p->getDescricao());
         if (!$stmt->execute()) {
             echo "Erro: (" . $stmt->errno . ") " . $stmt->error . "<br>";
         }
         $stmt = $mysqli->prepare("SELECT * FROM Produto order by cd_Produto DESC LIMIT 1");
         $stmt->execute();
-        $stmt->bind_result($id,$nome,$valor);
+        $stmt->bind_result($id,$nome,$valor,$capa,$tipo,$descricao);
         $stmt->fetch();
         $stmt->close();
-        $prod = new Produto($id,$nome,$valor);
+        $prod = new Produto($id,$nome,$valor,$capa,$tipo,$descricao);
         return $prod;
     }
     

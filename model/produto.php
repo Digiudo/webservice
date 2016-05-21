@@ -1,12 +1,15 @@
 <?php
 
 class Produto{
-    private $id, $nome, $valor;
+    private $id, $nome, $valor, $capa, $tipo, $descricao;
     
-    public function __construct($id=0, $nome, $valor){
+    public function __construct($id=0, $nome, $valor, $capa, $tipo, $descricao){
         $this->id = $id;
         $this->nome = $nome;
         $this->valor = $valor;
+        $this->capa = $capa;
+        $this->tipo = $tipo;
+        $this->descricao = $descricao;
     }
     
     public function getId(){
@@ -19,6 +22,18 @@ class Produto{
     
     public function getValor(){
         return $this->valor;
+    }
+    
+    public function getCapa(){
+        return $this->capa;
+    }
+    
+    public function getTipo(){
+        return $this->tipo;
+    }
+    
+    public function getDescricao(){
+        return $this->descricao;
     }
 }
 

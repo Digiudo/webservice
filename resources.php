@@ -109,10 +109,11 @@ class GeneralResourcePOST extends GeneralResource{
             //CUIDADO
             require_once "model/produto.php";
             require_once "model/produtoDAO.php";
-            $produto = new Produto(0,$array["nome"],$array["valor"]);
+            //var_dump($array["nome"],$array["valor"],$array["capa"],$array["tipo"],$array["descricao"]);
+            $produto = new Produto(0,$array["nome"],$array["valor"],$array["capa"],$array["tipo"],$array["descricao"]);
             $pd = new ProdutoDAO();
             $prod = $pd->insert($produto);
-            echo json_encode(array("id"=>$prod->getId(), "nome"=>$prod->getNome(), "valor"=>$prod->getValor()));
+            echo json_encode(array("id"=>$prod->getId(), "nome"=>$prod->getNome(), "valor"=>$prod->getValor(), "capa"=>$prod->getCapa(), "tipo"=>$prod->getTipo(), "descricao"=>$prod->getDescricao()));
             http_response_code(200);
         }else{
             echo json_encode(array("response"=>"Dados inválidos"));
