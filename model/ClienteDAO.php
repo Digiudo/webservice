@@ -22,8 +22,8 @@ class ClienteDAO{
         $stmt->execute();
         $stmt->bind_result($id,$nome, $tel);
         $stmt->fetch();
-        $cli = new Cliente($id,$nome,$tel);
         $stmt->close();
+        $cli = new Cliente($id,$nome,$tel);
         return $cli;
     }
     

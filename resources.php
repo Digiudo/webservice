@@ -24,8 +24,7 @@ class GeneralResourceGET extends GeneralResource{
         echo json_encode($tudo);
         http_response_code(200);
     }
-    public function clienteLista(){
-        $arg1 = $_GET["arg1"];
+    public function listarClientes(){
         header('content-type: application/json');
         require_once "model/Cliente.php";
         require_once "model/ClienteDAO.php";
@@ -35,6 +34,16 @@ class GeneralResourceGET extends GeneralResource{
             $array[] = array("cd_Cliente"=>$aux->getId(), "nm_Cliente"=>$aux->getNome(), "cd_Telefone"=>$aux->getTel());
         }
         echo json_encode($array);
+        http_response_code(200);
+    }
+    public function buscarCliente(){
+        $id = $_GET["arg1"];
+        header('content-type: application/json');
+        require_once "model/Cliente.php";
+        require_once "model/ClienteDAO.php";
+        $ct = new ClienteDAO();
+        $cli = $ct->getCliente($id);
+        echo json_encode(array("cd_Cliente"=>$cli->getId(), "nm_Cliente"=>$cli->getNome(), "cd_Telefone"=>$cli->getTel()));
         http_response_code(200);
     }
     
@@ -68,6 +77,11 @@ class GeneralResourceOPTIONS extends GeneralResource{
     }
     
     public function clienteLista(){
+        header('allow: GET, OPTIONS');
+        http_response_code(200); 
+    }
+    
+    public function buscarCliente(){
         header('allow: GET, OPTIONS');
         http_response_code(200); 
     }
