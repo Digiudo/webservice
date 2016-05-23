@@ -27,7 +27,7 @@ class ProdutoDAO{
         $prod = [];
         for ($count=0; $row = $stmt->fetch_assoc(); $count++){
             //$dados[$count] = $row;
-            $prod[$count] = new Produto($row['cd_Produto'],$row['nm_Produto'],$row['vl_Produto']);
+            $prod[$count] = new Produto($row['cd_Produto'],$row['nm_Produto'],$row['vl_Produto'],$row['im_Produto'],$row['tp_Produto'],$row['ds_Produto']);
             //var_dump($dados[0]['cd_Produto'].$dados[0]['nm_Produto'].$dados[0]['vl_Produto']);
         }
         return $prod;

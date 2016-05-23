@@ -19,7 +19,7 @@ class GeneralResourceGET extends GeneralResource{
         $pd = new ProdutoDAO();
         $prod = $pd->getProduct();
         foreach($prod as $x){
-            $tudo[] = array("id"=>$x->getId(), "nome"=>$x->getNome(), "valor"=>$x->getValor());
+            $tudo[] = array("id"=>$x->getId(), "nome"=>$x->getNome(), "valor"=>$x->getValor(), "capa"=>$x->getCapa(), "tipo"=>$x->getTipo(), "descricao"=>$x->getDescricao());
         }
         echo json_encode($tudo);
         http_response_code(200);
@@ -52,6 +52,11 @@ class GeneralResourceGET extends GeneralResource{
 class GeneralResourceOPTIONS extends GeneralResource{
 
     public function produto(){
+        header('allow: POST, OPTIONS');
+        http_response_code(200); 
+    }
+    
+    public function imagem(){
         header('allow: POST, OPTIONS');
         http_response_code(200); 
     }
@@ -102,6 +107,16 @@ class GeneralResourceOPTIONS extends GeneralResource{
 
 class GeneralResourcePOST extends GeneralResource{
     
+    public function imagem(){
+        
+        $img = file_get_contents('php://input');
+
+        $destino = 'fotos/' . "novo1";
+        
+        move_uploaded_file($img,$destino);
+        
+    }
+    
     public function produto(){
         if($_SERVER["CONTENT_TYPE"] === "application/json"){
             $json = file_get_contents('php://input');
@@ -149,7 +164,7 @@ class GeneralResourceDELETE extends GeneralResource{
             //CUIDADO
             require_once "model/produtoDAO.php";
             $pd = new ProdutoDAO();
-            $prod = $pd->deletar($_GET['arg1']);
+            $pd->deletar($_GET['arg1']);
             http_response_code(200);
         }else{
             echo json_encode(array("response"=>"Dados inválidos"));
