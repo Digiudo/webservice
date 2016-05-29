@@ -30,6 +30,7 @@ class ProdutoDAO{
             $prod[$count] = new Produto($row['cd_Produto'],$row['nm_Produto'],$row['vl_Produto'],$row['im_Produto'],$row['tp_Produto'],$row['ds_Produto']);
             //var_dump($dados[0]['cd_Produto'].$dados[0]['nm_Produto'].$dados[0]['vl_Produto']);
         }
+        $stmt->close();
         return $prod;
     }
     
@@ -38,6 +39,7 @@ class ProdutoDAO{
         $stmt = $mysqli->prepare("DELETE FROM Produto where cd_Produto = ?");
         $stmt->bind_param("i",$x);
         $stmt->execute();
+        $stmt->close();
     }
     
     public function alter(Produto $p){
@@ -45,8 +47,8 @@ class ProdutoDAO{
         if ($mysqli->connect_errno) {
             echo "Falha no MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
         }
-        $stmt = $mysqli->prepare("UPDATE Produto SET nm_Produto = ? , vl_Produto = ? WHERE cd_Produto = ?");
-        $stmt->bind_param("sdi",$p->getNome(),$p->getValor(),$p->getId());
+        $stmt = $mysqli->prepare("UPDATE Produto SET nm_produto =? ,vl_produto = ?,im_Produto = ?,tp_Produto = ?,ds_Produto = ?");
+        $stmt->bind_param("sssss",$p->getNome(),$p->getValor(),$p->getCapa(),$p->getTipo(),$p->getDescricao());
         if (!$stmt->execute()) {
             echo "Erro: (" . $stmt->errno . ") " . $stmt->error . "<br>";
         }
@@ -54,11 +56,10 @@ class ProdutoDAO{
         $stmt = $mysqli->prepare("SELECT * FROM Produto WHERE cd_Produto = ?");
         $stmt->bind_param("i",$p->getId());
         $stmt->execute();
-        
-        $stmt->bind_result($id,$nome,$valor);
+        $stmt->bind_result($id,$nome,$valor,$capa,$tipo,$descricao);
         $stmt->fetch();
         $stmt->close();
-        $prod = new Produto($id,$nome,$valor);
+        $prod = new Produto($id,$nome,$valor,$capa,$tipo,$descricao);
         return $prod;
     }
 }
