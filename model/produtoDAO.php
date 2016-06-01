@@ -34,6 +34,20 @@ class ProdutoDAO{
         return $prod;
     }
     
+    public function getBuscaProduto($produto){
+        $mysqli = new mysqli("127.0.0.1", "digiudo", "", "Teste");
+        $stmt = $mysqli->prepare("SELECT * FROM Produto WHERE nm_Produto = ?");
+        $stmt->bind_param("s",$produto);
+        $stmt->execute();
+        $v = $stmt->get_result();
+        $prod = [];
+        while ($row = $v->fetch_assoc()){
+            $prod[] = new Produto($row['cd_Produto'],$row['nm_Produto'],$row['vl_Produto'],$row['im_Produto'],$row['tp_Produto'],$row['ds_Produto']);
+        }
+        $stmt->close();
+        return $prod;
+    }
+    
     public function deletar($x){
         $mysqli = new mysqli("127.0.0.1", "digiudo", "", "Teste");
         $stmt = $mysqli->prepare("DELETE FROM Produto where cd_Produto = ?");
