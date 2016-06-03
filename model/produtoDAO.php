@@ -61,8 +61,8 @@ class ProdutoDAO{
         if ($mysqli->connect_errno) {
             echo "Falha no MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
         }
-        $stmt = $mysqli->prepare("UPDATE Produto SET nm_produto =? ,vl_produto = ?,im_Produto = ?,tp_Produto = ?,ds_Produto = ?");
-        $stmt->bind_param("sssss",$p->getNome(),$p->getValor(),$p->getCapa(),$p->getTipo(),$p->getDescricao());
+        $stmt = $mysqli->prepare("UPDATE Produto SET nm_produto =? ,vl_produto = ?,im_Produto = ?,tp_Produto = ?,ds_Produto = ? WHERE cd_Produto = ?");
+        $stmt->bind_param("sssssi",$p->getNome(),$p->getValor(),$p->getCapa(),$p->getTipo(),$p->getDescricao(),$p->getId());
         if (!$stmt->execute()) {
             echo "Erro: (" . $stmt->errno . ") " . $stmt->error . "<br>";
         }

@@ -213,7 +213,7 @@ class GeneralResourcePUT extends GeneralResource{
             //CUIDADO
             require_once "model/produto.php";
             require_once "model/produtoDAO.php";
-            $produto = new Produto($_GET['arg1'],$array["nome"],$array["valor"],"teste",$array["tipo"],$array["descricao"]);
+            $produto = new Produto($_GET['arg1'],$array["nome"],$array["valor"],$array["capa"],$array["tipo"],$array["descricao"]);
             $pd = new ProdutoDAO();
             $prod = $pd->alter($produto);
             echo json_encode(array("id"=>$prod->getId(), "nome"=>$prod->getNome(), "valor"=>$prod->getValor(), "capa"=>$prod->getCapa(), "tipo"=>$prod->getTipo(), "descricao"=>$prod->getDescricao()));
