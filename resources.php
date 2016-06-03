@@ -41,16 +41,26 @@ class GeneralResourceGET extends GeneralResource{
     
     public function listarUsuarios(){
         header('content-type: application/json');
-        require_once "model/Usuario.php";
+        $class = "Usuario".$_GET["arg1"];// espera arg F ou J
+        require_once "model/".$class.".php";
         require_once "model/UsuarioDAO.php";
         $ct = new UsuarioDAO();
-        $cli = $ct->listUsuario();
-        foreach($cli as $aux){
-            $array[] = array("cd_Usuario"=>$aux->getId(), "nm_Usuario"=>$aux->getNome(), "cd_Telefone"=>$aux->getTel(),"ds_Email"=>$aux->getEmail(),"ds_Senha"=>$aux->getSenha(),"ds_Endereco"=>$aux->getEndereco(),"ds_Numero"=>$aux->getNum(),"ds_Cidade"=>$aux->getCidade(),"sg_Estado"=>$aux->getEstado(),"cd_Cep"=>$aux->getCep());
-        }
+        $metodo = "list".$class;
+        $cli = $ct->$metodo();
+        switch ($class){
+                case 'UsuarioF':
+                    foreach($cli as $aux){
+                        $array[] = array("cd_Usuario"=>$aux->getId(), "nm_Usuario"=>$aux->getNome(),"ds_Email"=>$aux->getEmail(),"ds_Senha"=>$aux->getSenha(),"ds_Logradouro"=>$aux->getLogradouro(),"ds_Numero"=>$aux->getNum(),"ds_Cidade"=>$aux->getCidade(),"sg_Estado"=>$aux->getEstado(),"cd_Cep"=>$aux->getCep(),"cd_Telefone"=>$aux->getTel(),"fl_Usuario"=>$aux->getUsuario(),"cd_Rg"=>$aux->getRg(),"cd_Cpf"=>$aux->getCpf(),"ds_Sexo"=>$aux->getSexo());
+                    }
+                    break;
+                case 'UsuarioJ':
+                    // foreach Juridico...
+                    break;
+            }
         echo json_encode($array);
         http_response_code(200);
     }
+    
     public function buscarUsuario(){
         $id = $_GET["arg1"];
         header('content-type: application/json');
@@ -154,11 +164,20 @@ class GeneralResourcePOST extends GeneralResource{
         if($_SERVER["CONTENT_TYPE"] === "application/json"){
             $json = file_get_contents('php://input');
             $array = json_decode($json,true);
-            require_once "model/Usuario.php";
+            $class = "Usuario".$array["fl_Usuario"];
+            require_once "model/".$class.".php";
             require_once "model/UsuarioDAO.php";
-            $usuario = new Usuario(0,$array["nm_Usuario"],$array["ds_Email"],$array["ds_Senha"],$array["ds_Endereco"],$array["ds_Numero"],$array["ds_Cidade"],$array["sg_Estado"],$array["cd_Cep"],$array["cd_Telefone"]);
+            switch ($array["fl_Usuario"]){
+                case 'F':
+                    $usuario = new $class(0,$array["nm_Usuario"],$array["ds_Email"],$array["ds_Senha"],$array["ds_Logradouro"],$array["ds_Numero"],$array["ds_Cidade"],$array["sg_Estado"],$array["cd_Cep"],$array["cd_Telefone"],$array["fl_Usuario"],$array["cd_Rg"],$array["cd_Cpf"],$array["sg_Sexo"]);
+                    break;
+                case 'J':
+                    // new Usuario juridico...
+                    break;
+            }
             $ct = new UsuarioDAO();
-            $ct->insert($usuario);
+            $metodo = "insert".$class;
+            $ct->$metodo($usuario);
             echo json_encode(array("response"=>"Cadastrado"));
             http_response_code(200);   
         }else{
