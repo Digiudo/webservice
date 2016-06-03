@@ -121,6 +121,15 @@ class GeneralResourceOPTIONS extends GeneralResource{
 
 
 class GeneralResourcePOST extends GeneralResource{
+
+    public function up(){
+        $dir = '/home/ubuntu/workspace/Digiudo/imagens/uploads/';
+       
+        $uploadfile = $dir . basename($_FILES['arquivo']['name']);
+        move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile);
+        
+    }
+
     
     public function produto(){
         if($_SERVER["CONTENT_TYPE"] === "application/json"){
@@ -147,7 +156,7 @@ class GeneralResourcePOST extends GeneralResource{
             $array = json_decode($json,true);
             require_once "model/Usuario.php";
             require_once "model/UsuarioDAO.php";
-            $usuario = new Usuario(0,$array["nm_Usuario"],$array["cd_Telefone"],$array["ds_Email"],$array["ds_Senha"],$array["ds_Endereco"],$array["ds_Numero"],$array["ds_Cidade"],$array["sg_Estado"],$array["cd_Cep"]);
+            $usuario = new Usuario(0,$array["nm_Usuario"],$array["ds_Email"],$array["ds_Senha"],$array["ds_Endereco"],$array["ds_Numero"],$array["ds_Cidade"],$array["sg_Estado"],$array["cd_Cep"],$array["cd_Telefone"]);
             $ct = new UsuarioDAO();
             $ct->insert($usuario);
             echo json_encode(array("response"=>"Cadastrado"));
@@ -204,7 +213,7 @@ class GeneralResourcePUT extends GeneralResource{
             //CUIDADO
             require_once "model/produto.php";
             require_once "model/produtoDAO.php";
-            $produto = new Produto($_GET['arg1'],$array["nome"],$array["valor"],$array["capa"],$array["tipo"],$array["descricao"]);
+            $produto = new Produto($_GET['arg1'],$array["nome"],$array["valor"],"teste",$array["tipo"],$array["descricao"]);
             $pd = new ProdutoDAO();
             $prod = $pd->alter($produto);
             echo json_encode(array("id"=>$prod->getId(), "nome"=>$prod->getNome(), "valor"=>$prod->getValor(), "capa"=>$prod->getCapa(), "tipo"=>$prod->getTipo(), "descricao"=>$prod->getDescricao()));
