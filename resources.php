@@ -54,7 +54,9 @@ class GeneralResourceGET extends GeneralResource{
                     }
                     break;
                 case 'UsuarioJ':
-                    // foreach Juridico...
+                    foreach($cli as $aux){
+                        $array[] = array("cd_Usuario"=>$aux->getId(), "nm_Usuario"=>$aux->getNome(),"ds_Email"=>$aux->getEmail(),"ds_Senha"=>$aux->getSenha(),"ds_Logradouro"=>$aux->getLogradouro(),"ds_Numero"=>$aux->getNum(),"ds_Cidade"=>$aux->getCidade(),"sg_Estado"=>$aux->getEstado(),"cd_Cep"=>$aux->getCep(),"cd_Telefone"=>$aux->getTel(),"fl_Usuario"=>$aux->getUsuario(),"cd_Cnpj"=>$aux->getCnpj(),"nm_RazaoSocial"=>$aux->getRazaoSocial());
+                    }
                     break;
             }
         echo json_encode($array);
@@ -172,7 +174,7 @@ class GeneralResourcePOST extends GeneralResource{
                     $usuario = new $class(0,$array["nm_Usuario"],$array["ds_Email"],$array["ds_Senha"],$array["ds_Logradouro"],$array["ds_Numero"],$array["ds_Cidade"],$array["sg_Estado"],$array["cd_Cep"],$array["cd_Telefone"],$array["fl_Usuario"],$array["cd_Rg"],$array["cd_Cpf"],$array["sg_Sexo"]);
                     break;
                 case 'J':
-                    // new Usuario juridico...
+                    $usuario = new $class(0,$array["nm_Usuario"],$array["ds_Email"],$array["ds_Senha"],$array["ds_Logradouro"],$array["ds_Numero"],$array["ds_Cidade"],$array["sg_Estado"],$array["cd_Cep"],$array["cd_Telefone"],$array["fl_Usuario"],$array["cd_Cnpj"],$array["nm_RazaoSocial"]);
                     break;
             }
             $ct = new UsuarioDAO();

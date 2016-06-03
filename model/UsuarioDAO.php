@@ -26,8 +26,15 @@ class UsuarioDAO{
         if ($mysqli->connect_errno) {
             echo "Falha no MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
         }
-        $stmt = $mysqli->prepare("INSERT INTO Usuarios(nm_Usuario,cd_Telefone,ds_Email,ds_Senha,ds_Endereco,ds_Numero,ds_Cidade,sg_Estado,cd_Cep) VALUES (?,?,?,?,?,?,?,?,?)");
-        $stmt->bind_param("sssssssss",$p->getNome(),$p->getTel(),$p->getEmail(),$p->getSenha(),$p->getEndereco(),$p->getNum(),$p->getCidade(),$p->getEstado(),$p->getCep());
+        $stmt = $mysqli->prepare("INSERT INTO Usuarios(nm_Usuario,ds_Email,ds_Senha,ds_Logradouro,ds_Numero,ds_Cidade,sg_Estado,cd_Cep,cd_Telefone,fl_Usuario) VALUES(?,?,?,?,?,?,?,?,?,?)");
+        $stmt->bind_param("ssssssssss",$p->getNome(),$p->getEmail(),$p->getSenha(),$p->getLogradouro(),$p->getNum(),$p->getCidade(),$p->getEstado(),$p->getCep(),$p->getTel(),$p->getUsuario());
+        
+        if (!$stmt->execute()) {
+            echo "Erro: (" . $stmt->errno . ") " . $stmt->error . "<br>";
+        }
+        $retornoId = mysqli_insert_id($mysqli);
+        $stmt = $mysqli->prepare("INSERT INTO UsuarioJuridico(cd_UsuJuridico,cd_Cnpj,nm_RazaoSocial) VALUES (?,?,?)");
+        $stmt->bind_param("iss",$retornoId, $p->getCnpj(), $p->getRazaoSocial());
         if (!$stmt->execute()) {
             echo "Erro: (" . $stmt->errno . ") " . $stmt->error . "<br>";
         }
@@ -52,7 +59,18 @@ class UsuarioDAO{
         $row = $stmt->fetch_all();
         $c = [];
         foreach($row as $usuario){
-            $c[] = new UsuarioF($usuario[0],$usuario[1],$usuario[2],$usuario[3],$usuario[4],$usuario[5],$usuario[6],$usuario[7],$usuario[8],$usuario[9],$usuario[10],$usuario[11],$usuario[12],$usuario[13]);
+            $c[] = new UsuarioF($usuario[0],$usuario[1],$usuario[2],$usuario[3],$usuario[4],$usuario[5],$usuario[6],$usuario[7],$usuario[8],$usuario[9],$usuario[10],$usuario[12],$usuario[13],$usuario[14]);
+        }
+        $stmt->close();
+        return $c;
+    }
+    public function listUsuarioJ(){ //Listar usuarios juridicos
+        $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
+        $stmt = $mysqli->query("SELECT * FROM Usuarios as U INNER JOIN UsuarioJuridico as J ON U.cd_Usuario = J.cd_UsuJuridico");
+        $row = $stmt->fetch_all();
+        $c = [];
+        foreach($row as $usuario){
+            $c[] = new UsuarioJ($usuario[0],$usuario[1],$usuario[2],$usuario[3],$usuario[4],$usuario[5],$usuario[6],$usuario[7],$usuario[8],$usuario[9],$usuario[10],$usuario[12],$usuario[13]);
         }
         $stmt->close();
         return $c;
