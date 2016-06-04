@@ -134,6 +134,24 @@ class GeneralResourceOPTIONS extends GeneralResource{
 
 class GeneralResourcePOST extends GeneralResource{
 
+    public function auth(){
+        if($_SERVER["CONTENT_TYPE"] === "application/json"){
+            $json = file_get_contents('php://input');
+            $array = json_decode($json,true);
+            $uDAO = new UsuarioDAO();
+            $ehLoginCorreto = $uDAO->authUser($array["login"],$array["senha"]);
+            if($ehLoginCorreto === false){
+                header("Location: /digiudo/vender");
+            }else{
+                $_SESSION["_ID"] = $ehLoginCorreto;
+                header("Location: /digiudo/perfil");
+            }
+        }else{
+            echo json_encode(array("response"=>"Dados inválidos"));
+            http_response_code(500);   
+        }
+    }
+
     public function up(){
         $dir = '/home/ubuntu/workspace/Digiudo/imagens/uploads/';
        
@@ -141,7 +159,6 @@ class GeneralResourcePOST extends GeneralResource{
         move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile);
         
     }
-
     
     public function produto(){
         if($_SERVER["CONTENT_TYPE"] === "application/json"){
