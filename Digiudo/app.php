@@ -1,7 +1,6 @@
 <?php
 
 class App{
-    //VEM DA URL
     private $met, $clazz;
     
     public function __construct($met,$clazz){
@@ -19,9 +18,9 @@ class App{
             $met= $this->met;
             $c->$met();
         }else{
-            require_once "controller/HomeController.php";
-            $c = new HomeController();
-            $c->call(); 
+            require_once "controller/DigiudoController.php";
+            $c = new DigiudoController();
+            $c->erroNotFound(); 
         }
     }
 }
