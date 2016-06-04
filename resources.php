@@ -138,13 +138,12 @@ class GeneralResourcePOST extends GeneralResource{
         if($_SERVER["CONTENT_TYPE"] === "application/json"){
             $json = file_get_contents('php://input');
             $array = json_decode($json,true);
+            require_once "model/UsuarioDAO.php";
             $uDAO = new UsuarioDAO();
             $ehLoginCorreto = $uDAO->authUser($array["login"],$array["senha"]);
             if($ehLoginCorreto === false){
-                header("Location: /digiudo/vender");
             }else{
                 $_SESSION["_ID"] = $ehLoginCorreto;
-                header("Location: /digiudo/perfil");
             }
         }else{
             echo json_encode(array("response"=>"Dados inválidos"));
