@@ -152,7 +152,7 @@ class GeneralResourcePOST extends GeneralResource{
     }
 
     public function up(){
-        $dir = '/home/ubuntu/workspace/Digiudo/imagens/uploads/';
+        $dir = '/home/ubuntu/workspace/Digiudo/view/imagens/uploads/';
        
         $uploadfile = $dir . basename($_FILES['arquivo']['name']);
         move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile);
