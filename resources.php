@@ -48,17 +48,17 @@ class GeneralResourceGET extends GeneralResource{
         $metodo = "list".$class;
         $cli = $ct->$metodo();
         switch ($class){
-                case 'UsuarioF':
-                    foreach($cli as $aux){
-                        $array[] = array("cd_Usuario"=>$aux->getId(), "nm_Usuario"=>$aux->getNome(),"ds_Email"=>$aux->getEmail(),"ds_Senha"=>$aux->getSenha(),"ds_Logradouro"=>$aux->getLogradouro(),"ds_Numero"=>$aux->getNum(),"ds_Cidade"=>$aux->getCidade(),"sg_Estado"=>$aux->getEstado(),"cd_Cep"=>$aux->getCep(),"cd_Telefone"=>$aux->getTel(),"fl_Usuario"=>$aux->getUsuario(),"cd_Rg"=>$aux->getRg(),"cd_Cpf"=>$aux->getCpf(),"ds_Sexo"=>$aux->getSexo());
-                    }
-                    break;
-                case 'UsuarioJ':
-                    foreach($cli as $aux){
-                        $array[] = array("cd_Usuario"=>$aux->getId(), "nm_Usuario"=>$aux->getNome(),"ds_Email"=>$aux->getEmail(),"ds_Senha"=>$aux->getSenha(),"ds_Logradouro"=>$aux->getLogradouro(),"ds_Numero"=>$aux->getNum(),"ds_Cidade"=>$aux->getCidade(),"sg_Estado"=>$aux->getEstado(),"cd_Cep"=>$aux->getCep(),"cd_Telefone"=>$aux->getTel(),"fl_Usuario"=>$aux->getUsuario(),"cd_Cnpj"=>$aux->getCnpj(),"nm_RazaoSocial"=>$aux->getRazaoSocial());
-                    }
-                    break;
-            }
+            case 'UsuarioF':
+                foreach($cli as $aux){
+                    $array[] = array("cd_Usuario"=>$aux->getId(), "nm_Usuario"=>$aux->getNome(),"ds_Email"=>$aux->getEmail(),"ds_Senha"=>$aux->getSenha(),"ds_Logradouro"=>$aux->getLogradouro(),"ds_Numero"=>$aux->getNum(),"ds_Cidade"=>$aux->getCidade(),"sg_Estado"=>$aux->getEstado(),"cd_Cep"=>$aux->getCep(),"cd_Telefone"=>$aux->getTel(),"fl_Usuario"=>$aux->getUsuario(),"cd_Rg"=>$aux->getRg(),"cd_Cpf"=>$aux->getCpf(),"ds_Sexo"=>$aux->getSexo());
+                }
+                break;
+            case 'UsuarioJ':
+                foreach($cli as $aux){
+                    $array[] = array("cd_Usuario"=>$aux->getId(), "nm_Usuario"=>$aux->getNome(),"ds_Email"=>$aux->getEmail(),"ds_Senha"=>$aux->getSenha(),"ds_Logradouro"=>$aux->getLogradouro(),"ds_Numero"=>$aux->getNum(),"ds_Cidade"=>$aux->getCidade(),"sg_Estado"=>$aux->getEstado(),"cd_Cep"=>$aux->getCep(),"cd_Telefone"=>$aux->getTel(),"fl_Usuario"=>$aux->getUsuario(),"cd_Cnpj"=>$aux->getCnpj(),"nm_RazaoSocial"=>$aux->getRazaoSocial());
+                }
+                break;
+        }
         echo json_encode($array);
         http_response_code(200);
     }
@@ -134,23 +134,7 @@ class GeneralResourceOPTIONS extends GeneralResource{
 
 class GeneralResourcePOST extends GeneralResource{
 
-    public function auth(){
-        if($_SERVER["CONTENT_TYPE"] === "application/json"){
-            $json = file_get_contents('php://input');
-            $array = json_decode($json,true);
-            require_once "model/UsuarioDAO.php";
-            $uDAO = new UsuarioDAO();
-            $ehLoginCorreto = $uDAO->authUser($array["login"],$array["senha"]);
-            if($ehLoginCorreto === false){
-            }else{
-                $_SESSION["_ID"] = $ehLoginCorreto;
-            }
-        }else{
-            echo json_encode(array("response"=>"Dados inválidos"));
-            http_response_code(500);   
-        }
-    }
-
+    
     public function up(){
         $dir = '/home/ubuntu/workspace/Digiudo/view/imagens/uploads/';
        

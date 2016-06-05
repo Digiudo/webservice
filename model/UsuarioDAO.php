@@ -97,20 +97,6 @@ class UsuarioDAO{
         $stmt->close();
     }
     
-    public function authUser($login,$senha){
-    
-        $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
-        $stmt = $mysqli->prepare("SELECT cd_Usuario FROM Usuarios WHERE ds_Email=? AND ds_Senha=?");
-        $stmt->bind_param("ss",$login,$senha);
-        $stmt->execute();
-        $stmt->bind_result($id);
-        $stmt->fetch();
-        if($id>0){
-            return $id;
-        }else{
-            return false;
-        }
-    }
 }
 
 ?>
