@@ -17,7 +17,7 @@ class GeneralResourceGET extends GeneralResource{
         require_once "model/produto.php";
         require_once "model/produtoDAO.php";
         $pd = new ProdutoDAO();
-        $prod = $pd->getProduct();
+        $prod = $pd->getProduct($_GET["arg1"]);
         foreach($prod as $x){
             $tudo[] = array("id"=>$x->getId(), "nome"=>$x->getNome(), "valor"=>$x->getValor(), "capa"=>$x->getCapa(), "tipo"=>$x->getTipo(), "descricao"=>$x->getDescricao());
         }
@@ -136,7 +136,7 @@ class GeneralResourcePOST extends GeneralResource{
 
     
     public function up(){
-        $dir = '/home/ubuntu/workspace/Digiudo/view/imagens/uploads/';
+        $dir = '/home/ubuntu/workspace/digiudo/view/imagens/uploads/';
        
         $uploadfile = $dir . basename($_FILES['arquivo']['name']);
         move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile);
@@ -147,11 +147,10 @@ class GeneralResourcePOST extends GeneralResource{
         if($_SERVER["CONTENT_TYPE"] === "application/json"){
             $json = file_get_contents('php://input');
             $array = json_decode($json,true);
-            //CUIDADO
             require_once "model/produto.php";
             require_once "model/produtoDAO.php";
             //var_dump($array["nome"],$array["valor"],$array["capa"],$array["tipo"],$array["descricao"]);
-            $produto = new Produto(0,$array["nome"],$array["valor"],$array["capa"],$array["tipo"],$array["descricao"]);
+            $produto = new Produto($array["user"],0,$array["nome"],$array["valor"],$array["capa"],$array["tipo"],$array["descricao"]);
             $pd = new ProdutoDAO();
             $prod = $pd->insert($produto);
             echo json_encode(array("id"=>$prod->getId(), "nome"=>$prod->getNome(), "valor"=>$prod->getValor(), "capa"=>$prod->getCapa(), "tipo"=>$prod->getTipo(), "descricao"=>$prod->getDescricao()));
@@ -194,9 +193,7 @@ class GeneralResourceDELETE extends GeneralResource{
     
     public function deletarProduto(){
         if($_SERVER["CONTENT_TYPE"] === "application/json"){
-            //$json = file_get_contents('php://input');
-            //$array = json_decode($json,true);
-            //CUIDADO
+            
             require_once "model/produtoDAO.php";
             $pd = new ProdutoDAO();
             $pd->deletar($_GET['arg1']);
@@ -234,7 +231,7 @@ class GeneralResourcePUT extends GeneralResource{
             //CUIDADO
             require_once "model/produto.php";
             require_once "model/produtoDAO.php";
-            $produto = new Produto($_GET['arg1'],$array["nome"],$array["valor"],$array["capa"],$array["tipo"],$array["descricao"]);
+            $produto = new Produto(0,$array['id'],$array["nome"],$array["valor"],$array["capa"],$array["tipo"],$array["descricao"]);
             $pd = new ProdutoDAO();
             $prod = $pd->alter($produto);
             echo json_encode(array("id"=>$prod->getId(), "nome"=>$prod->getNome(), "valor"=>$prod->getValor(), "capa"=>$prod->getCapa(), "tipo"=>$prod->getTipo(), "descricao"=>$prod->getDescricao()));
