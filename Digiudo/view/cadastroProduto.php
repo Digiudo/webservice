@@ -29,20 +29,23 @@
 	<script>
         <?php include "js/principal.js"; ?>
     </script>
+    <script>
+		window.sessionStorage.setItem("id", <?= $_SESSION["_ID"]['id']?>);
+    </script>
 </head>
 <body onload="listar()">
 
 
 <header>
-	<a href="index.html" ><h1>Digiúdo</h1></a>
+	<a href="index" ><h1>Digiúdo</h1></a>
 	
 	<ul>
-		<li class="lis"><a href="compra.html">comprar</a></li>
-		<li class="lis"><a href="vender.html">vender</a></li>
-		<li class="lis"><a href="saibamais.html">saiba mais</a></li>
-		<li class="lis"><a href="cadastroInicial.html">cadastrar</a></li>
-		<li class="lis"><a href="vender.html">login</a></li>
+		<li class="lis"><a href="compra">comprar</a></li>
+		<li class="lis"><a href="vender">vender</a></li>
+		<li class="lis"><a href="saibamais">saiba mais</a></li>
+		<li class="lis"><a href="cadastroUsuario">cadastrar</a></li>
 		<li class="lis"><a href="#">carrinho</a></li>	
+		<li class="lis"><a href="painel">Olá <?= $_SESSION["_ID"]['nome']?></a></li>
 	</ul>
 	
 	<div id="area-busca">
@@ -56,7 +59,7 @@
 
 <div id="breadcrumbs">
 	<ul>
-		<li><a href="index.html">home</a></li> 
+		<li><a href="index">home</a></li> 
 		<li>login e cadastro</li>
 	</ul>
 </div>
@@ -64,7 +67,7 @@
 	
 <main>
 	<div class="anuncio">
-		<img src="imagens/outras/semimagem.jpg" class="anuncio1">
+		<img src="view/imagens/outras/semimagem.jpg" class="anuncio1">
 		<h2 class="dest">NOME DO PRODUTO</h2>
 		<p class="tvideo">Tipo</p>
 		<p>Por apenas:<br><span>00,00</span></p>
@@ -107,10 +110,10 @@
                 </label>
                 <label>Tipo Arquivo
                 <select id="tipo" name="tipo">
-  					<option value="Tipo"></option>
-  					<option value="Video">Video</option>
-  					<option value="Áudio">Áudio</option>
-  					<option value="eBook">eBook</option>
+  					<option value="0"></option>
+  					<option value="1" title="Video">Video</option>
+  					<option value="2" title="Áudio">Áudio</option>
+  					<option value="3" title="eBook">eBook</option>
 				</select>
                 </label>
                 </div>
@@ -141,15 +144,15 @@
 <footer class="vcard"> <!-- hcard-->
 <div class="blocos-footer">
 	<p>Redes Sociais</p>
-	<a href="#" class="url"><img src="imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
 </div>
 <div class="blocos-footer">
 	<div class="blocos-footer-centro">
 		<p>Ligue grátis:</p>
-		<img src="imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
+		<img src="view/imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
 		<div id="ligue-gratis" class="tel">0800 726 2020</div> <!-- hcard-->
 	</div>
 </div>
@@ -169,8 +172,8 @@
 </div>
 </footer>
 <script>
-        <?php include "js/CadastroProduto.js"; ?>
-    </script>
+    <?php include "js/CadastroProduto.js"; ?>
+</script>
 
 </body>
 </html>

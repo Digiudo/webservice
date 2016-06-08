@@ -32,14 +32,14 @@
 </head>
 <body>
 <header>
-	<a href="index.html" ><h1>Digiúdo</h1></a>
+	<a href="index" ><h1>Digiúdo</h1></a>
 	
 	<ul>
-		<li class="lis"><a href="compra.html">comprar</a></li>
-		<li class="lis"><a href="vender.html">vender</a></li>
-		<li class="lis"><a href="saibamais.html">saiba mais</a></li>
-		<li class="lis"><a href="cadastroInicial.html">cadastrar</a></li>
-		<li class="lis"><a href="vender.html">login</a></li>
+		<li class="lis"><a href="compra">comprar</a></li>
+		<li class="lis"><a href="<?php if(!$_SESSION["_ID"]){ echo "vender";}else{echo "cadastroProduto";}?>">vender</a></li>
+		<li class="lis"><a href="saibamais">saiba mais</a></li>
+		<li class="lis"><a href="cadastroUsuario">cadastrar</a></li>
+		<li class="lis"><a href="<?php if(!$_SESSION["_ID"]){ echo "vender";}else{echo "painel";}?>"><?php if(!$_SESSION["_ID"]){ echo "login";}else{echo "painel";}?></a></li>
 		<li class="lis"><a href="#">carrinho</a></li>	
 	</ul>
 	
@@ -54,7 +54,7 @@
 
 <div id="breadcrumbs">
 	<ul>
-		<li><a href="index.html">home</a></li> 
+		<li><a href="index">home</a></li> 
 		<li>comprar</li>
 	</ul>
 	
@@ -77,12 +77,12 @@
 </nav>
 <main id="principal">
 	
-	<img src="imagens/banner/banner.png" alt="banner de cima" id="banner-cima">
+	<img src="view/imagens/banner/banner.png" alt="banner de cima" id="banner-cima">
 	
 	<h2 id="texto-busca">O que você procura?</h2>
 	<label>
 	<input type="search" id="busc" name="buscaprincipal" onchange="buscaPrinc()"><a href="#">
-	<img src="imagens/icones/busq.png" alt="iconebuscaPagina" onclick="buscaPrinc()"></a>
+	<img src="view/imagens/icones/busq.png" alt="iconebuscaPagina" onclick="buscaPrinc()"></a>
 	</label>
 	
 <!-- Anuncios-->
@@ -98,26 +98,26 @@
 	</div>
 <!-- Anuncios até aqui-->
 
-<img src="imagens/banner/netshoes.png" alt="banner de baixo" id="banner-baixo">
+<img src="view/imagens/banner/netshoes.png" alt="banner de baixo" id="banner-baixo">
 
 </main>
 
 <aside>
-<img src="imagens/banner/banner_lateral.jpg" alt="banner Lateral" id="banner-lateral">
+<img src="view/imagens/banner/banner_lateral.jpg" alt="banner Lateral" id="banner-lateral">
 </aside>
 
 <footer class="vcard"> <!-- hcard-->
 <div class="blocos-footer">
 	<p>Redes Sociais</p>
-	<a href="#" class="url"><img src="imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
 </div>
 <div class="blocos-footer">
 	<div class="blocos-footer-centro">
 		<p>Ligue grátis:</p>
-		<img src="imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
+		<img src="view/imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
 		<div id="ligue-gratis" class="tel">0800 726 2020</div> <!-- hcard-->
 	</div>
 </div>

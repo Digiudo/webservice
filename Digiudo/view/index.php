@@ -35,27 +35,29 @@
 	<script>
         <?php include "js/video.js"; ?>
     </script>
+    <!--
 	<script>
         <?php include "js/anuncio.js"; ?>
     </script>
+    -->
 <script>
 	$("#videoa").hover(function(){
 		$("#videoa").hide();
 	});
 	
-	
+
 </script>
 </head>
 <body>
 <header>
-	<a href="index.html" ><h1>Digiúdo</h1></a>
+	<a href="index" ><h1>Digiúdo</h1></a>
 	
 	<ul>
-		<li class="lis"><a href="compra.html">comprar</a></li>
-		<li class="lis"><a href="vender.html">vender</a></li>
-		<li class="lis"><a href="saibamais.html">saiba mais</a></li>
-		<li class="lis"><a href="cadastroInicial.html">cadastrar</a></li>
-		<li class="lis"><a href="vender.html">login</a></li>
+		<li class="lis"><a href="compra">comprar</a></li>
+		<li class="lis"><a href="<?php if(!$_SESSION["_ID"]){ echo "vender";}else{echo "cadastroProduto";}?>">vender</a></li>
+		<li class="lis"><a href="saibamais">saiba mais</a></li>
+		<li class="lis"><a href="cadastroUsuario">cadastrar</a></li>
+		<li class="lis"><a href="<?php if(!$_SESSION["_ID"]){ echo "vender";}else{echo "painel";}?>"><?php if(!$_SESSION["_ID"]){ echo "login";}else{echo "painel";}?></a></li>
 		<li class="lis"><a href="#">carrinho</a></li>	
 	</ul>
 	
@@ -70,19 +72,19 @@
 
 <div id="princ">
 	<h1>Classificados de Conteúdo Digital</h1>
-	<video src="#" controls poster="imagens/outras/posterhome.jpg" title="nossovideo" id="videob">
+	<video src="#" controls poster="view/imagens/outras/posterhome.jpg" title="nossovideo" id="videob">
 	</video>
 	<video loop autoplay class="boxvideo" id="videoa" title="video promocional do Digiúdo">
-		<source src="videos/fundo.mp4">
+		<source src="view/videos/fundo.mp4">
 	</video>
 	<div class="centralizar-botao">
 		<a href="compra.html" class="boton1">COMPRAR</a>
 		<a href="vender.html" class="boton1">VENDER</a>
 	</div>
-	<a href="#" id="subir"><img src="imagens/icones/next-section.png" alt="next"  ></a>
+	<a href="#" id="subir"><img src="view/imagens/icones/next-section.png" alt="next"  ></a>
 	</div >
 <aside >
-	<img src="imagens/outras/mulher-duvida-mobile.png" alt="fundo2" >
+	<img src="view/imagens/outras/mulher-duvida-mobile.png" alt="fundo2" >
 </aside>
 
 <nav class="saiba">
@@ -97,18 +99,18 @@
 	</div>
 </nav>
 	<div class="fixar-next2">
-		<a href="#" id="descer"><img src="imagens/icones/next-section-escuro.png" alt="next2"></a>
+		<a href="#" id="descer"><img src="view/imagens/icones/next-section-escuro.png" alt="next2"></a>
 	</div>
 <main>
 	<h2>O que você procura?</h2>
 	<label><span>Pesquisar</span>
 	<input type="search" name="buscaprincipal">
 	</label>
-	<img src="imagens/icones/busq.png" alt="iconebuscaPagina">
+	<img src="view/imagens/icones/busq.png" alt="iconebuscaPagina">
 <div class="conteudo">
 	<div class="anuncio">
 		
-		<img src="imagens/comprar/energizesuavidasquared.jpg" alt="Imagem do produto energize sua vida" class="anuncio1">
+		<img src="view/imagens/comprar/energizesuavidasquared.jpg" alt="Imagem do produto energize sua vida" class="anuncio1">
 		<h2 class="dest">Energize Sua Vida</h2>
 		<p class="tvideo">eBook</p>
 		<p>
@@ -123,7 +125,7 @@
 	
 	<div class="anuncio">
 		
-		<img src="imagens/comprar/hm_dreamweaver.jpg" alt="Imagem do produto dreamweaver total" class="anuncio1">
+		<img src="view/imagens/comprar/hm_dreamweaver.jpg" alt="Imagem do produto dreamweaver total" class="anuncio1">
 		<h2 class="dest">Dreamweaver Total</h2>
 		<p class="tvideo">Video</p>
 		<p>
@@ -138,7 +140,7 @@
 	
 	<div class="anuncio">
 		
-		<img src="imagens/comprar/capahotmart.jpg" alt="Imagem do produto máquina de falar inglês" class="anuncio1">
+		<img src="view/imagens/comprar/capahotmart.jpg" alt="Imagem do produto máquina de falar inglês" class="anuncio1">
 		<h2 class="dest">Máquina de Falar Inglês</h2>
 		<p class="tvideo">Video</p>
 		<p>
@@ -159,15 +161,15 @@
 <footer class="vcard"> <!-- hcard-->
 <div class="blocos-footer">
 	<p>Redes Sociais</p>
-	<a href="#" class="url"><img src="imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
 </div>
 <div class="blocos-footer">
 	<div class="blocos-footer-centro">
 		<p>Ligue grátis:</p>
-		<img src="imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
+		<img src="view/imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
 		<div id="ligue-gratis" class="tel">0800 726 2020</div> <!-- hcard-->
 	</div>
 </div>

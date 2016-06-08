@@ -32,14 +32,14 @@
 </head>
 <body>
 <header>
-	<a href="index.html" ><h1>Digiúdo</h1></a>
+	<a href="index" ><h1>Digiúdo</h1></a>
 	
 	<ul>
-		<li class="lis"><a href="compra.html">comprar</a></li>
-		<li class="lis"><a href="vender.html">vender</a></li>
-		<li class="lis"><a href="saibamais.html">saiba mais</a></li>
-		<li class="lis"><a href="cadastroInicial.html">cadastrar</a></li>
-		<li class="lis"><a href="vender.html">login</a></li>
+		<li class="lis"><a href="compra">comprar</a></li>
+		<li class="lis"><a href="vender">vender</a></li>
+		<li class="lis"><a href="saibamais">saiba mais</a></li>
+		<li class="lis"><a href="#">cadastrar</a></li>
+		<li class="lis"><a href="vender">login</a></li>
 		<li class="lis"><a href="#">carrinho</a></li>	
 	</ul>
 	
@@ -54,7 +54,7 @@
 
 <div id="breadcrumbs">
 	<ul>
-		<li><a href="index.html">home</a></li> 
+		<li><a href="index">home</a></li> 
 		<li>cadastro usuário</li>
 	</ul>
 </div>
@@ -98,8 +98,8 @@
             		<label>
 						Sexo:<br>
 						<select id="sexo" name="sexo" size="1" class="inpcadastrar" tabindex="6">
-							<option value="F" selected>Feminino</option>
-							<option value="M">Masculino</option>
+							<option value="F">Feminino</option>
+							<option value="M" selected>Masculino</option>
 						</select>
 					</label>
             	</p>
@@ -175,15 +175,15 @@
 <footer class="vcard"> <!-- hcard-->
 <div class="blocos-footer">
 	<p>Redes Sociais</p>
-	<a href="#" class="url"><img src="imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
 </div>
 <div class="blocos-footer">
 	<div class="blocos-footer-centro">
 		<p>Ligue grátis:</p>
-		<img src="imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
+		<img src="view/imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
 		<div id="ligue-gratis" class="tel">0800 726 2020</div> <!-- hcard-->
 	</div>
 </div>

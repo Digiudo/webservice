@@ -3,7 +3,7 @@
 class DigiudoController extends Controller{
     
     
-    public function index(){
+    public function home(){
         $this->view->renderizar("index");
     }
     
@@ -26,11 +26,20 @@ class DigiudoController extends Controller{
     }
     
     public function vender(){
-        $this->view->renderizar("vender");
+        if(!isset($_SESSION["_ID"])){
+            $this->view->renderizar("vender");
+        }else{
+            $this->view->renderizar("painel");
+        }
     }
     
     public function cadastroUsuario(){
-        $this->view->renderizar("cadastroUsuario");
+        if(!isset($_SESSION["_ID"])){
+            $this->view->renderizar("cadastroUsuario");
+        }else{
+            $this->view->renderizar("painel");
+        }
+        
     }
     
     public function painel(){
@@ -46,7 +55,6 @@ class DigiudoController extends Controller{
     public function estaAuth(){
         if(!isset($_SESSION["_ID"])){
             $this->vender();       
-            exit();
         }
     }
     
@@ -65,10 +73,10 @@ class DigiudoController extends Controller{
             $uDAO = new LoginDAO();
             $ehLoginCorreto = $uDAO->authUser($array["login"],$array["senha"]);
             if($ehLoginCorreto === false){
-                header("Location: /digiudo/vender");
+                echo json_encode($ehLoginCorreto);
             }else{
                 $_SESSION["_ID"] = $ehLoginCorreto;
-                header("Location: /digiudo/painel");
+                echo json_encode($ehLoginCorreto);
             }
         }else{
             echo json_encode(array("response"=>"Dados inválidos"));

@@ -32,7 +32,7 @@
 </head>
 <body>
 <header>
-	<a href="index.html" ><h1>Digiúdo</h1></a>
+	<a href="index" ><h1>Digiúdo</h1></a>
 	<div class="minha-conta">
 		<ul id="menu-minha-conta">
 			<li>Minha Conta
@@ -42,7 +42,7 @@
 					<li><a href="#">Alterar e-mail</a></li>
 					<li><a href="#">Alterar senha</a></li>
 					<li><a href="#">Preferências</a></li>
-					<li><a href="#">Sair</a></li>
+					<li><a href="logout">Sair</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -60,31 +60,31 @@
 
 <nav id="menu-superior">	
 	<ul>
-		<li><a href="#"><img src="imagens/icones/icone-painel.png" title="Painel" alt="Painel" class="icone"></a></li>
-		<li><a href="compra.html"><img src="imagens/icones/icone-comprar.png" title="Comprar" alt="Comprar" class="icone"></a></li>
-		<li><a href="#"><img src="imagens/icones/icone-minhas-compras.png" title="Minhas Compras" alt="icone-minhas-compras" class="icone"></a></li>
-		<li><a href="#"><img src="imagens/icones/icone-vender.png" title="Vender" alt="icone-vender" class="icone"></a></li>
-		<li><a href="#"><img src="imagens/icones/icone-minhas-vendas.png" title="Minhas Vendas" alt="icone-minhas-vendas" class="icone"></a></li>
-		<li><a href="#"><img src="imagens/icones/icone-meus-ganhos.png" title="Meus Ganhos" alt="icone-meus-ganhos" class="icone"></a></li>
-		<li><a href="#"><img src="imagens/icones/icone-carrinho.png" title="Carrinho" alt="icone-carrinho" class="icone"></a></li>
+		<li><a href="#"><img src="view/imagens/icones/icone-painel.png" title="Painel" alt="Painel" class="icone"></a></li>
+		<li><a href="compra"><img src="view/imagens/icones/icone-comprar.png" title="Comprar" alt="Comprar" class="icone"></a></li>
+		<li><a href="#"><img src="view/imagens/icones/icone-minhas-compras.png" title="Minhas Compras" alt="icone-minhas-compras" class="icone"></a></li>
+		<li><a href="cadastroProduto"><img src="view/imagens/icones/icone-vender.png" title="Vender" alt="icone-vender" class="icone"></a></li>
+		<li><a href="#"><img src="view/imagens/icones/icone-minhas-vendas.png" title="Minhas Vendas" alt="icone-minhas-vendas" class="icone"></a></li>
+		<li><a href="#"><img src="view/imagens/icones/icone-meus-ganhos.png" title="Meus Ganhos" alt="icone-meus-ganhos" class="icone"></a></li>
+		<li><a href="#"><img src="view/imagens/icones/icone-carrinho.png" title="Carrinho" alt="icone-carrinho" class="icone"></a></li>
 	</ul>
 </nav>
 <div id="breadcrumbs">
 	<ul>
-		<li><a href="index.html">home</a></li>
+		<li><a href="index">home</a></li>
 		<li>painel</li>
 	</ul>
 </div>
 
 <main>
 	<div id="perfil">
-		<img src="imagens/outras/foto-perfil.jpg" alt="Foto do Perfil" id="foto-perfil">
-		<h2>Olá Marco,</h2>
+		<img src="view/imagens/outras/foto-perfil.jpg" alt="Foto do Perfil" id="foto-perfil">
+		<h2>Olá <?= $_SESSION["_ID"]['nome']?>,</h2>
 		<p>Bem vindo(a)</p>
 	</div>
 	
 	<div id="ganhos">
-		<img src="imagens/outras/grafico-de-ganhos.png" alt="Foto do Perfil" id="foto-ganhos">
+		<img src="view/imagens/outras/grafico-de-ganhos.png" alt="Foto do Perfil" id="foto-ganhos">
 		<h2>Ganhos da semana...</h2>
 		<p>R$ 629,99</p>
 		
@@ -95,7 +95,7 @@
 	<h2>Destaques:</h2>
 	<div class="anuncio">
 		
-		<img src="imagens/comprar/energizesuavidasquared.jpg" alt="banner Lateral" class="anuncio1">
+		<img src="view/imagens/comprar/energizesuavidasquared.jpg" alt="banner Lateral" class="anuncio1">
 		<h2 class="dest">Energize Sua Vida</h2>
 		<p class="tvideo">eBook</p>
 		<p>
@@ -110,7 +110,7 @@
 	
 	<div class="anuncio">
 		
-		<img src="imagens/comprar/hm_dreamweaver.jpg" alt="banner Lateral" class="anuncio1">
+		<img src="view/imagens/comprar/hm_dreamweaver.jpg" alt="banner Lateral" class="anuncio1">
 		<h2 class="dest">Dreamweaver Total</h2>
 		<p class="tvideo">Video</p>
 		<p>
@@ -125,7 +125,7 @@
 	
 	<div class="anuncio">
 		
-		<img src="imagens/comprar/capahotmart.jpg" alt="banner Lateral" class="anuncio1">
+		<img src="view/imagens/comprar/capahotmart.jpg" alt="banner Lateral" class="anuncio1">
 		<h2 class="dest">Máquina de Falar Inglês</h2>
 		<p class="tvideo">Video</p>
 		<p>
@@ -139,7 +139,7 @@
 	</div>
 	<div class="anuncio">
 		
-		<img src="imagens/comprar/AudioJusLogo.jpg" alt="banner Lateral" class="anuncio1">
+		<img src="view/imagens/comprar/AudioJusLogo.jpg" alt="banner Lateral" class="anuncio1">
 		<h2 class="dest">Concurso Publico</h2>
 		<p class="tvideo">Áudio</p>
 		<p>
@@ -158,15 +158,15 @@
 <footer class="vcard"> <!-- hcard-->
 <div class="blocos-footer">
 	<p>Redes Sociais</p>
-	<a href="#" class="url"><img src="imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
 </div>
 <div class="blocos-footer">
 	<div class="blocos-footer-centro">
 		<p>Ligue grátis:</p>
-		<img src="imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
+		<img src="view/imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
 		<div id="ligue-gratis" class="tel">0800 726 2020</div> <!-- hcard-->
 	</div>
 </div>

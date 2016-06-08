@@ -21,9 +21,6 @@
 		<?php include "css/saibamais.css"; ?>
     </style>
 	<script>
-        <?php include "js/jquery.js"; ?>
-    </script>
-	<script>
         <?php include "js/bibliotecaJQuery/jquery-2.2.0.js"; ?>
     </script>
 	<script>
@@ -32,14 +29,14 @@
 </head>
 <body>
 <header>
-	<a href="index.html" ><h1>Digiúdo</h1></a>
+	<a href="index" ><h1>Digiúdo</h1></a>
 	
 	<ul>
-		<li class="lis"><a href="compra.html">comprar</a></li>
-		<li class="lis"><a href="vender.html">vender</a></li>
-		<li class="lis"><a href="saibamais.html">saiba mais</a></li>
-		<li class="lis"><a href="cadastroInicial.html">cadastrar</a></li>
-		<li class="lis"><a href="vender.html">login</a></li>
+		<li class="lis"><a href="compra">comprar</a></li>
+		<li class="lis"><a href="<?php if(!$_SESSION["_ID"]){ echo "vender";}else{echo "cadastroProduto";}?>">vender</a></li>
+		<li class="lis"><a href="saibamais">saiba mais</a></li>
+		<li class="lis"><a href="cadastroUsuario">cadastrar</a></li>
+		<li class="lis"><a href="<?php if(!$_SESSION["_ID"]){ echo "vender";}else{echo "painel";}?>"><?php if(!$_SESSION["_ID"]){ echo "login";}else{echo "painel";}?></a></li>
 		<li class="lis"><a href="#">carrinho</a></li>	
 	</ul>
 	
@@ -54,7 +51,7 @@
 
 <div id="breadcrumbs">
 	<ul>
-		<li><a href="index.html">home</a></li> 
+		<li><a href="index">home</a></li> 
 		<li>saiba mais</li>
 	</ul>
 </div>
@@ -69,12 +66,12 @@
 	<a href="#.html" class="boton">Dúvidas frequentes</a>
 </nav>
 <aside class="acc">
-	<video src="#" controls poster="imagens/outras/postercomprar.jpg" title="videocomprar" class="topvideo">
+	<video src="#" controls poster="view/imagens/outras/postercomprar.jpg" title="videocomprar" class="topvideo">
 	</video>
 </aside>
 
 <aside class="top degrade acc2">
-	<video src="#" controls title="videovender" poster="imagens/outras/postervender.jpg" class="topvideo">
+	<video src="#" controls title="videovender" poster="view/imagens/outras/postervender.jpg" class="topvideo">
 	</video>
 </aside>
 <nav class="saiba top degrade position-mobile">
@@ -91,15 +88,15 @@
 <footer class="vcard"> <!-- hcard-->
 <div class="blocos-footer">
 	<p>Redes Sociais</p>
-	<a href="#" class="url"><img src="imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
-	<a href="#" class="url"><img src="imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/face.png" alt="icone Facebook" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/g+.png" alt="icone Google mais" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/youtube.png" alt="icone youtube" class="photo"></a> <!-- hcard-->
+	<a href="#" class="url"><img src="view/imagens/icones/twitter.png" alt="icone twitter" class="photo"></a> <!-- hcard-->
 </div>
 <div class="blocos-footer">
 	<div class="blocos-footer-centro">
 		<p>Ligue grátis:</p>
-		<img src="imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
+		<img src="view/imagens/icones/telefone.png" alt="icone telefone" class="photo"> <!-- hcard-->
 		<div id="ligue-gratis" class="tel">0800 726 2020</div> <!-- hcard-->
 	</div>
 </div>
