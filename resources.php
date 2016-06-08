@@ -206,12 +206,20 @@ class GeneralResourceDELETE extends GeneralResource{
     
     public function deletarUsuario(){
         if($_SERVER["CONTENT_TYPE"] === "application/json"){
+            $usuario = "deletarUsuario" . $_GET['arg1'];
             //$json = file_get_contents('php://input');
             //$array = json_decode($json,true);
             //require_once "model/Cliente.php";
             require_once "model/UsuarioDAO.php";
             $cd = new UsuarioDAO();
-            $cd->deletar($_GET['arg1']);
+            switch ($usuario){
+                case 'deletarUsuarioF':
+                    $cd->$usuario($_GET['arg2']);
+                    break;
+                case 'deletarUsuarioJ':
+                    $cd->$usuario($_GET['arg2']);
+                    break;
+            }
             echo json_encode(array("response"=>"Usuario deletado"));
             http_response_code(200);
         }else{

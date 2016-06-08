@@ -76,8 +76,22 @@ class UsuarioDAO{
         return $c;
     }
     
-    public function deletar($id){
+    public function deletarUsuarioF($id){
         $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
+        $stmt = $mysqli->prepare("DELETE FROM UsuarioFisico WHERE cd_UsuFisico=?");
+        $stmt->bind_param("i",$id);
+        $stmt->execute();
+        $stmt = $mysqli->prepare("DELETE FROM Usuarios WHERE cd_Usuario=?");
+        $stmt->bind_param("i",$id);
+        $stmt->execute();
+        $stmt->close();
+    }
+    
+    public function deletarUsuarioJ($id){
+        $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
+        $stmt = $mysqli->prepare("DELETE FROM UsuarioJuridico WHERE cd_UsuJuridico=?");
+        $stmt->bind_param("i",$id);
+        $stmt->execute();
         $stmt = $mysqli->prepare("DELETE FROM Usuarios WHERE cd_Usuario=?");
         $stmt->bind_param("i",$id);
         $stmt->execute();
