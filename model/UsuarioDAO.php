@@ -98,13 +98,36 @@ class UsuarioDAO{
         $stmt->close();
     }
     
-    public function alterar(Usuario $p){
+    public function alterarUsuarioF(UsuarioF $p){
         $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
         if ($mysqli->connect_errno) {
             echo "Falha no MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
         }
-        $stmt = $mysqli->prepare("UPDATE Usuarios SET nm_Usuario=?, cd_Telefone=?, ds_Email=?, ds_Senha=?, ds_Endereco=?, ds_Numero=?, ds_Cidade=?, sg_Estado=?, cd_Cep=? WHERE cd_Usuario=?");
-        $stmt->bind_param("sssssssssi",$p->getNome(),$p->getTel(),$p->getEmail(),$p->getSenha(),$p->getEndereco(),$p->getNum(),$p->getCidade(),$p->getEstado(),$p->getCep(),$p->getId());
+        $stmt = $mysqli->prepare("UPDATE Usuarios SET nm_Usuario=?, ds_Email=?, ds_Senha=?, ds_Logradouro=?, ds_Numero=?, ds_Cidade=?, sg_Estado=?, cd_Cep=?, cd_Telefone=?, fl_Usuario=? WHERE cd_Usuario=?");
+        $stmt->bind_param("ssssssssssi",$p->getNome(),$p->getEmail(),$p->getSenha(),$p->getLogradouro(),$p->getNum(),$p->getCidade(),$p->getEstado(),$p->getCep(),$p->getTel(),$p->getUsuario(),$p->getId());
+        if (!$stmt->execute()) {
+            echo "Erro: (" . $stmt->errno . ") " . $stmt->error . "<br>";
+        }
+        $stmt = $mysqli->prepare("UPDATE UsuarioFisico SET cd_Rg=?, cd_Cpf=?, sg_Sexo=? WHERE cd_UsuFisico=?");
+        $stmt->bind_param("sssi", $p->getRg(), $p->getCpf(), $p->getSexo(), $p->getId());
+        if (!$stmt->execute()) {
+            echo "Erro: (" . $stmt->errno . ") " . $stmt->error . "<br>";
+        }
+        $stmt->close();
+    }
+    
+    public function alterarUsuarioJ(UsuarioJ $p){
+        $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
+        if ($mysqli->connect_errno) {
+            echo "Falha no MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+        }
+        $stmt = $mysqli->prepare("UPDATE Usuarios SET nm_Usuario=?, ds_Email=?, ds_Senha=?, ds_Logradouro=?, ds_Numero=?, ds_Cidade=?, sg_Estado=?, cd_Cep=?, cd_Telefone=?, fl_Usuario=? WHERE cd_Usuario=?");
+        $stmt->bind_param("ssssssssssi",$p->getNome(),$p->getEmail(),$p->getSenha(),$p->getLogradouro(),$p->getNum(),$p->getCidade(),$p->getEstado(),$p->getCep(),$p->getTel(),$p->getUsuario(),$p->getId());
+        if (!$stmt->execute()) {
+            echo "Erro: (" . $stmt->errno . ") " . $stmt->error . "<br>";
+        }
+        $stmt = $mysqli->prepare("UPDATE UsuarioJuridico SET cd_Cnpj=?,nm_RazaoSocial=? WHERE cd_UsuJuridico=?");
+        $stmt->bind_param("ssi", $p->getCnpj(), $p->getRazaoSocial(), $p->getId());
         if (!$stmt->execute()) {
             echo "Erro: (" . $stmt->errno . ") " . $stmt->error . "<br>";
         }

@@ -254,11 +254,20 @@ class GeneralResourcePUT extends GeneralResource{
         if($_SERVER["CONTENT_TYPE"] === "application/json"){
             $json = file_get_contents('php://input');
             $array = json_decode($json,true);
-            require_once "model/Usuario.php";
+            $class = "Usuario".$array["fl_Usuario"];
+            require_once "model/".$class.".php";
             require_once "model/UsuarioDAO.php";
-            $usuario = new Usuario($_GET["arg1"],$array["nm_Usuario"],$array["cd_Telefone"],$array["ds_Email"],$array["ds_Senha"],$array["ds_Endereco"],$array["ds_Numero"],$array["ds_Cidade"],$array["sg_Estado"],$array["cd_Cep"]);
+            switch ($array["fl_Usuario"]){
+                case 'F':
+                    $usuario = new $class($_GET["arg1"],$array["nm_Usuario"],$array["ds_Email"],$array["ds_Senha"],$array["ds_Logradouro"],$array["ds_Numero"],$array["ds_Cidade"],$array["sg_Estado"],$array["cd_Cep"],$array["cd_Telefone"],$array["fl_Usuario"],$array["cd_Rg"],$array["cd_Cpf"],$array["sg_Sexo"]);
+                    break;
+                case 'J':
+                    $usuario = new $class($_GET["arg1"],$array["nm_Usuario"],$array["ds_Email"],$array["ds_Senha"],$array["ds_Logradouro"],$array["ds_Numero"],$array["ds_Cidade"],$array["sg_Estado"],$array["cd_Cep"],$array["cd_Telefone"],$array["fl_Usuario"],$array["cd_Cnpj"],$array["nm_RazaoSocial"]);
+                    break;
+            }
             $ct = new UsuarioDAO();
-            $ct->alterar($usuario);
+            $metodo = "alterar".$class;
+            $ct->$metodo($usuario);
             echo json_encode(array("response"=>"Usuario alterado"));
             http_response_code(200);   
         }else{
