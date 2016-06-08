@@ -21,6 +21,7 @@ class UsuarioDAO{
         }
         $stmt->close();
     }
+    
     public function insertUsuarioJ(UsuarioJ $p){
         $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
         if ($mysqli->connect_errno) {
@@ -41,16 +42,36 @@ class UsuarioDAO{
         $stmt->close();
     }
     
-    public function getUsuario($id){ //Consultar um unico cliente
+    public function getUsuario($id){ //Consultar um unico cliente Fisico ou Juridico
         $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
-        $stmt = $mysqli->prepare("SELECT * FROM Usuarios WHERE cd_Usuario=?");
+        $stmt = $mysqli->prepare("SELECT fl_Usuario FROM Usuarios WHERE cd_Usuario=?");
         $stmt->bind_param("i",$id);
         $stmt->execute();
-        $stmt->bind_result($id, $nome, $tel,$email,$senha,$endereco,$num,$cidade,$estado,$cep);
+        $stmt->bind_result($usuario);
         $stmt->fetch();
         $stmt->close();
-        $cli = new Usuario($id, $nome, $tel,$email,$senha,$endereco,$num,$cidade,$estado,$cep);
-        return $cli;
+        require_once "model/Usuario".$usuario.".php";
+        $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
+        switch ($usuario){
+            case 'F':
+                $stmt = $mysqli->prepare("SELECT * FROM Usuarios as U INNER JOIN UsuarioFisico as F ON U.cd_Usuario = F.cd_UsuFisico AND U.cd_Usuario=?");
+                $stmt->bind_param("i",$id);
+                $stmt->execute();
+                $stmt->bind_result($id,$nome,$email,$senha,$endereco,$num,$cidade,$estado,$cep,$tel,$usuario,$idF,$rg,$cpf,$sexo);
+                $stmt->fetch();
+                $usu = new UsuarioF($id,$nome,$email,$senha,$endereco,$num,$cidade,$estado,$cep,$tel,$usuario,$rg,$cpf,$sexo);
+                break;
+            case 'J':
+                $stmt = $mysqli->prepare("SELECT * FROM Usuarios as U INNER JOIN UsuarioJuridico as J ON U.cd_Usuario = J.cd_UsuJuridico AND U.cd_Usuario=?");
+                $stmt->bind_param("i",$id);
+                $stmt->execute();
+                $stmt->bind_result($id,$nome,$email,$senha,$endereco,$num,$cidade,$estado,$cep,$tel,$usuario,$idJ,$cnpj,$razaoSocial);
+                $stmt->fetch();
+                $usu = new UsuarioJ($id,$nome,$email,$senha,$endereco,$num,$cidade,$estado,$cep,$tel,$usuario,$cnpj,$razaoSocial);
+                break;
+        }
+        $stmt->close();
+        return $usu;
     }
     
     public function listUsuarioF(){ //Listar usuarios fisicos
@@ -64,6 +85,7 @@ class UsuarioDAO{
         $stmt->close();
         return $c;
     }
+    
     public function listUsuarioJ(){ //Listar usuarios juridicos
         $mysqli = new mysqli("127.0.0.1", "digiudo", "", "WebPHP");
         $stmt = $mysqli->query("SELECT * FROM Usuarios as U INNER JOIN UsuarioJuridico as J ON U.cd_Usuario = J.cd_UsuJuridico");

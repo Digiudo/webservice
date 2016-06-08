@@ -69,8 +69,16 @@ class GeneralResourceGET extends GeneralResource{
         require_once "model/Usuario.php";
         require_once "model/UsuarioDAO.php";
         $ct = new UsuarioDAO();
-        $cli = $ct->getUsuario($id);
-        echo json_encode(array("cd_Usuario"=>$cli->getId(), "nm_Usuario"=>$cli->getNome(), "cd_Telefone"=>$cli->getTel(),"ds_Email"=>$cli->getEmail(),"ds_Senha"=>$cli->getSenha(),"ds_Endereco"=>$cli->getEndereco(),"ds_Numero"=>$cli->getNum(),"ds_Cidade"=>$cli->getCidade(),"sg_Estado"=>$cli->getEstado(),"cd_Cep"=>$cli->getCep()));
+        $aux = $ct->getUsuario($id);
+        switch ($aux->getUsuario()){
+            case 'F':
+                $usuario = array("cd_Usuario"=>$aux->getId(), "nm_Usuario"=>$aux->getNome(),"ds_Email"=>$aux->getEmail(),"ds_Senha"=>$aux->getSenha(),"ds_Logradouro"=>$aux->getLogradouro(),"ds_Numero"=>$aux->getNum(),"ds_Cidade"=>$aux->getCidade(),"sg_Estado"=>$aux->getEstado(),"cd_Cep"=>$aux->getCep(),"cd_Telefone"=>$aux->getTel(),"fl_Usuario"=>$aux->getUsuario(),"cd_Rg"=>$aux->getRg(),"cd_Cpf"=>$aux->getCpf(),"ds_Sexo"=>$aux->getSexo());
+                break;
+            case 'J':
+                $usuario = array("cd_Usuario"=>$aux->getId(), "nm_Usuario"=>$aux->getNome(),"ds_Email"=>$aux->getEmail(),"ds_Senha"=>$aux->getSenha(),"ds_Logradouro"=>$aux->getLogradouro(),"ds_Numero"=>$aux->getNum(),"ds_Cidade"=>$aux->getCidade(),"sg_Estado"=>$aux->getEstado(),"cd_Cep"=>$aux->getCep(),"cd_Telefone"=>$aux->getTel(),"fl_Usuario"=>$aux->getUsuario(),"cd_Cnpj"=>$aux->getCnpj(),"nm_RazaoSocial"=>$aux->getRazaoSocial());
+                break;
+        }
+        echo json_encode($usuario);
         http_response_code(200);
     }
     
