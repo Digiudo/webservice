@@ -54,7 +54,12 @@ class GeneralResourceGET extends GeneralResource{
     
     public function listarUsuarios(){
         header('content-type: application/json');
-        $class = "Usuario".$_GET["arg1"];// espera arg F ou J
+        if($_GET["arg1"] == 0){
+		    $aux = "F";
+	    }else if($_GET["arg1"] == 1){
+		    $aux = "J";
+	    }
+        $class = "Usuario".$aux;// espera arg F ou J
         require_once "model/".$class.".php";
         require_once "model/UsuarioDAO.php";
         $ct = new UsuarioDAO();
