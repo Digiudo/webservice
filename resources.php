@@ -12,6 +12,19 @@ abstract class GeneralResource{
 
 class GeneralResourceGET extends GeneralResource{
     
+    public function listaTodosProduto(){
+        header('content-type: application/json');
+        require_once "model/produto.php";
+        require_once "model/produtoDAO.php";
+        $pd = new ProdutoDAO();
+        $prod = $pd->getAllProduct();
+        foreach($prod as $x){
+            $tudo[] = array("id"=>$x->getId(), "nome"=>$x->getNome(), "valor"=>$x->getValor(), "capa"=>$x->getCapa(), "tipo"=>$x->getTipo(), "descricao"=>$x->getDescricao());
+        }
+        echo json_encode($tudo);
+        http_response_code(200);
+    }
+    
     public function listaProduto(){
         header('content-type: application/json');
         require_once "model/produto.php";
